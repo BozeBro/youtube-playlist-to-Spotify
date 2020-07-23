@@ -1,8 +1,9 @@
 client_secrets_file.json
 tempCodeRunnerFile.py
-Youtube/tempCodeRunnerFile.py
 venv/
+__pycache__
 .vscode
 
-Youtube/auth.py
-Youtube/test.py
+auth.py
+test.py
+test_youtube.py
