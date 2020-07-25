@@ -1,0 +1,19 @@
+#secret file
+client_secrets_file.json
+spotify_secrets.py
+#created at runtime
+tempCodeRunnerFile.py
+test_youtube.cpython-38.pyc
+
+env
+#IDE 
+.vscode
+__pycache__
+
+#Uneeded files for other users
+auth.py
+test.py
+test_youtube.py
+
+LICENSE
+
