@@ -110,6 +110,7 @@ class Youtube:
             request = self.youtube_resource.playlistItems().list_next(request, response)
 
     def decor_vids(loop_videos):
+        # Deprecated functoins
         def stream(self, most=50, **kwargs):
             """
             There is a cap on values for id in loop_videos()
@@ -125,6 +126,7 @@ class Youtube:
 
     @decor_vids
     def get_video_info(self, start, end, part="contentDetails", most=50):
+        # Deprecated functoins
         """
         Retrieves information on a youtube video.
         id takes a comma separated list that can find info on one or more ids
@@ -139,12 +141,7 @@ class Youtube:
 if __name__ == "__main__":
     # Testing
     # Obtaining the youtube class
-    youtube = Youtube(
-        playlist_name="Music",
-        channel_id="UCPFpJ1tgPaT-hsvoaFDuuRw",
-        playlist_id="PLLecTHfXLdJOwTuUCsrQd6ZujmWVP2pT_",
-        api_key=os.environ["API_KEY"],
-    )
+    youtube = Youtube(playlist_name="Music", authenticate=True)
     # Obtaining the specified playlist
     youtube.get_playlist()
     # Obtaining the video ids
