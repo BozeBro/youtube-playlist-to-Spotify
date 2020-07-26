@@ -1,6 +1,7 @@
 #secret file
 client_secrets_file.json
-spotify_secrets.py
+token_locations.json
+
 #created at runtime
 tempCodeRunnerFile.py
 test_youtube.cpython-38.pyc
