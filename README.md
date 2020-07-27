@@ -7,7 +7,7 @@ There are plans to have an update feature to add new songs in the future. (NOT G
 
 Much difficulty in transferring songs from youtube into spotify is trying to parse out youtube's flexible guidelines for song titles and listings of song names and artists. Youtube's API does not offer song name or artist so one has to manually parse evey video.
 
-See youtube_parser.py for the main() function.
+See youtube_parser.py for the parsing functions.
 
 # Requirements
 
