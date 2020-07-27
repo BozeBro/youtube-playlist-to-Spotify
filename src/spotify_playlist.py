@@ -16,39 +16,30 @@ import youtube_parser
 from youtube import Youtube
 import spotify
 
-
-def main():
-    public = True
-    # Create the playlist
-    spotify_playlist = "Automated Spotify Playlist"
-    description = "My Youtube Playlist in Spotify using Python. All songs transported not guaranteed"
-    sf = spotify.Spotify(public=public)
-    sf.playlist_id = sf.sp.user_playlist_create(
-        sf.user_id, name=spotify_playlist, public=sf.public, description=description
-    )["id"]
-    # Get the specified youtube playlist and its video titles
-    playlist_name = "Music"
-    authenticate = True
-    yt = Youtube(playlist_name=playlist_name, authenticate=authenticate)
-    yt.get_playlist()
-    yt.get_videos()
-    # parse video titles
-    tracks = youtube_parser.second_parser(yt.video_titles)
-    failed = []
-    # Search for songs on Spotify
-    for track in tracks:
-        sf.search_tracks(track=track)
-        if sf.track_uri:
-            sf.sp.user_playlist_add_tracks(sf.user_id, sf.playlist_id, [sf.track_uri])
-        else:
-            # Have failed to find tracks for user to see
-            failed.append(track)
-    # List of songs that did not get added
-    # Allow to manually add unadded songs
-    with open(f"failed {spotify_playlist}.txt", "w") as f:
-        for i in failed:
-            f.write(f"{i}, ")
-
+class Playlist(object):
+    def __init__(self, spotify={}, youtube={}):
+        """
+        make a resource to talk to spotify api and youtube api
+        see spotify.py for params
+        see youtube.py for params
+        """
+        self.sf = Spotfy(**spotify)
+        self.yt = Youtube(**youtube_parser)
+    def handle_playlist(self, func, sf_playlist="", description="", mode="w", **kwargs):
+        """
+        Handles making and updating a playlist
+        if making playlist, func=sf.add_tracks, mode="w", failed=[]
+        if updating a playlist, func=sf.update, mode ="r"
+        """
+        if func == self.sf.add_tracks:
+            self.sf.playlist_id = sf.sp.user_playlist_create(
+                self.sf.user_id, name=sf_playlist, public=sf.public, description=description
+            )["id"]
+        yt.get_playlist()
+        yt.get_videos()
+        tracks = youtube_parser.second_parser(yt.video_titles)
+        func(spotify_playlist, tracks, mode, **kwargs)
 
 if __name__ == "__main__":
-    main()
+    playlist = Playlist(spotify={"public": True}, youtube={"authenticate":True, "playlist_name": "Music"})
+    playlist.handle_playlist(playlist.sf.update_playlist, sf_playlist="Music", mode="a")

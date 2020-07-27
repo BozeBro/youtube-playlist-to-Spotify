@@ -29,7 +29,7 @@ import youtube_parser
 class Youtube:
     def __init__(
         self,
-        playlist_name,
+        playlist_name=None,
         authenticate=None,
         api_key=None,
         playlist_id=None,
@@ -108,7 +108,6 @@ class Youtube:
             ]
             self.video_titles.extend(some_titles)
             request = self.youtube_resource.playlistItems().list_next(request, response)
-
     def decor_vids(loop_videos):
         # Deprecated functoins
         def stream(self, most=50, **kwargs):

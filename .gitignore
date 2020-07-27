@@ -1,6 +1,7 @@
 #secret file
 client_secrets_file.json
 token_locations.json
+spotify_tokens.json
 
 #created at runtime
 tempCodeRunnerFile.py
