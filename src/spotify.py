@@ -68,7 +68,7 @@ class Spotify:
         except:
             self.track_uri = False
 
-    def add_tracks(self, playlist_name, tracks, failed, mode="w"):
+    def add_tracks(self, playlist_name, tracks, failed, succ=[], mode="w"):
         """
         Tries to add tracks onto Spotify playlist
 
@@ -83,9 +83,13 @@ class Spotify:
                 self.sp.user_playlist_add_tracks(
                     self.user_id, self.playlist_id, [self.track_uri]
                 )
-            else:
-                # Have failed to find tracks for user to see
-                failed.append(track)
+                succ.append(track)
+                else:
+                    # Have failed to find tracks for user to see
+                    failed.append(track)
+        with open(f"succ {playlist_name}.txt", mode) as f:
+            for i in succ:
+                f.write(f"i, ")
         with open(f"failed {playlist_name}.txt", mode) as f:
             for i in failed:
                 f.write(f"{i}, ")
@@ -106,8 +110,14 @@ class Spotify:
                 failed = set(listing)
         except FileNotFoundError:
             listing, failed = [], set()
-        tracks = list(set(tracks) - failed)
-        self.add_tracks(name, tracks, listing, mode="a")
+        try:
+            with open(f"succ {name}", "r") as f:
+                    listsucc = next(f)
+                    succ = set(listsucc)
+        except FileNotFoundError:
+            listsucc, succ = [], set()
+        tracks = list(set(tracks) - failed - succ)
+        self.add_tracks(name, tracks, listing, succ, mode="a")
 
 
 if __name__ == "__main__":
